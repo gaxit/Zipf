@@ -1,0 +1,3 @@
+Poprawiæ wczytywanie
+1. Usun¹æ znaki specjalne
+2. Usun¹æ cyfry

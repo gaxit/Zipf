@@ -10,7 +10,7 @@ import chart.MyChart;
 
 public class Zipf {
 
-	private static final String FILE_NAME = "test.txt";
+	private static final String FILE_NAME = "genezisEsperanto.txt";
 
 	public static void main(String[] args) throws IOException {
 		TextExtractor textExtractor = new TextExtractor();

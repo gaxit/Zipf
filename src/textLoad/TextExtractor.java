@@ -45,7 +45,7 @@ public class TextExtractor {
 			}
 			Object value = mp.get(word);
 			if (value == null) {
-				mp.put(word, 0);
+				mp.put(word, 1);
 			} else {
 				mp.put(word, mp.get(word) + 1);
 			}
