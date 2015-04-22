@@ -1,5 +1,7 @@
 package chart;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 import org.jfree.chart.ChartFactory;
@@ -12,16 +14,25 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 public class MyChart {
 
+	private static final int CHART_HEIGHT = 400;
+	private static final int CHART_WIDTH = 400;
+
+	private static final String CHART_TITLE = "Wykres zale¿noœci s³ów od pozycji rankingowej";
+	private static final String X_SERIES_LABEL = "Pozycja rankingowa";
+	private static final String Y_SERIES_LABEL = "Iloœæ wyst¹pieñ";
+
+	private static final boolean CHART_LEGEND = true;
+	private static final boolean CHART_TOOLTIPS = true;
+	private static final boolean CHART_URLS = false;
+
+	private static final String WORDS = "S³owa";
+
 	public static void main(final String[] args) {
-		final MyChart demo = new MyChart("Multi Line Chart");
+		ChartPanel chartPanel = createChartPanel();
+		prepareJFrame(chartPanel);
 	}
 
-	public MyChart(String text) {
-		XYDataset dataset = createDataset();
-		JFreeChart chart = createChart(dataset);
-		ChartPanel chartPanel = new ChartPanel(chart);
-		chartPanel.setPreferredSize(new java.awt.Dimension(400, 400));
-		chartPanel.setVisible(true);
+	private static void prepareJFrame(ChartPanel chartPanel) {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(chartPanel);
@@ -29,9 +40,16 @@ public class MyChart {
 		frame.pack();
 	}
 
-	private XYDataset createDataset() {
-		final XYSeries series1 = new XYSeries("SLMM");
-		final XYSeries series2 = new XYSeries("FSPM");
+	private static ChartPanel createChartPanel() {
+		XYDataset dataset = createDataset();
+		JFreeChart chart = createJFreeChart(dataset);
+		ChartPanel chartPanel = new ChartPanel(chart);
+		chartPanel.setPreferredSize(new Dimension(CHART_WIDTH, CHART_HEIGHT));
+		return chartPanel;
+	}
+
+	private static XYDataset createDataset() {
+		final XYSeries series1 = new XYSeries(WORDS);
 
 		final XYSeriesCollection dataset = new XYSeriesCollection();
 
@@ -41,21 +59,15 @@ public class MyChart {
 		series1.add(4, 1);
 		series1.add(5, 1);
 
-		series2.add(1, 3);
-		series2.add(2, 3);
-		series2.add(3, 3);
-		series2.add(4, 3);
-		series2.add(5, 3);
-
 		dataset.addSeries(series1);
-		dataset.addSeries(series2);
 		return dataset;
 	}
 
-	private JFreeChart createChart(final XYDataset dataset) {
-		final JFreeChart chart = ChartFactory.createXYLineChart(
-				"Power Comparison", "Transaction", "Energy", dataset,
-				PlotOrientation.VERTICAL, true, true, false);
+	private static JFreeChart createJFreeChart(final XYDataset dataset) {
+		final JFreeChart chart = ChartFactory.createScatterPlot(CHART_TITLE,
+				X_SERIES_LABEL, Y_SERIES_LABEL, dataset,
+				PlotOrientation.VERTICAL, CHART_LEGEND, CHART_TOOLTIPS,
+				CHART_URLS);
 		return chart;
 	}
 }
