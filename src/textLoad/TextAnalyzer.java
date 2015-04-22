@@ -1,12 +1,12 @@
 package textLoad;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import model.Word;
 
 public class TextAnalyzer {
 
-	public void stdDev(ArrayList<Word> words) {
+	public void stdDev(List<Word> words) {
 		int threshold = 10; // minimalna ilosc wystapien slowa ktorego wymagamy
 							// aby wykorzystac je w liczeniu
 		double stdDev = 0.0;

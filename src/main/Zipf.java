@@ -1,7 +1,7 @@
 package main;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import model.Word;
 import textLoad.TextAnalyzer;
@@ -15,7 +15,8 @@ public class Zipf {
 
 	public static void main(String[] args) throws IOException {
 		TextExtractor textExtractor = new TextExtractor();
-		ArrayList<Word> extractedWords = textExtractor.extract(FILE_NAME);
+		List<Word> extractedWords = textExtractor.readFile(FILE_NAME);
+		// ArrayList<Word> extractedWords = textExtractor.extract(FILE_NAME);
 
 		MyChart myChart = new MyChart();
 		myChart.prepareJFrame(extractedWords);
@@ -26,7 +27,7 @@ public class Zipf {
 
 	}
 
-	private static void display(ArrayList<Word> aList) {
+	private static void display(List<Word> aList) {
 		for (Word w : aList) {
 			System.out.println(w.getText() + " " + w.getInstances());
 		}

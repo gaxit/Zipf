@@ -6,49 +6,46 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import model.Word;
 import model.WordComparator;
 
 public class TextExtractor {
 
-	String readFile(String fileName) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(fileName));
-		try {
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-
-			while (line != null) {
-				sb.append(line);
-				sb.append("\n");
-				line = br.readLine();
-			}
-			return sb.toString();
-		} finally {
-			br.close();
+	private void putToMap(Map<String, Integer> mp, String key) {
+		key = key.trim();
+		if ("".equals(key) || " ".equals(key) || "[".equals(key)
+				|| "]".equals(key) || "/".equals(key) || "\\".equals(key)) {
+			return;
+		}
+		Object value = mp.get(key);
+		if (value == null) {
+			mp.put(key, 1);
+		} else {
+			mp.put(key, mp.get(key) + 1);
 		}
 	}
 
-	public ArrayList<Word> extract(String filename) throws IOException {
+	public List<Word> readFile(String fileName) throws IOException {
 		Map<String, Integer> mp = new HashMap<String, Integer>();
+		BufferedReader br = new BufferedReader(new FileReader(fileName));
+		try {
+			String line = br.readLine();
 
-		String str = readFile(filename);
-
-		StringTokenizer st = new StringTokenizer(str);
-		while (st.hasMoreElements()) {
-			String word = (String) st.nextElement();
-
-			if (word.charAt(word.length() - 1) == ',') {
-				word = word.substring(0, word.length() - 1);
+			while (line != null) {
+				String lineReplaced = line.replaceAll("[0-9]", " ");
+				lineReplaced = lineReplaced.replaceAll("[:;.,!(){}]", " ");
+				lineReplaced = lineReplaced.toLowerCase();
+				String[] wordTab = lineReplaced.split(" ");
+				for (String word : wordTab) {
+					putToMap(mp, word);
+				}
+				line = br.readLine();
 			}
-			Object value = mp.get(word);
-			if (value == null) {
-				mp.put(word, 1);
-			} else {
-				mp.put(word, mp.get(word) + 1);
-			}
+		} finally {
+			br.close();
 		}
 
 		ArrayList<Word> arrList = new ArrayList<Word>();
@@ -60,8 +57,11 @@ public class TextExtractor {
 
 		Collections.sort(arrList, new WordComparator());
 
-		return arrList;
+		for (Word w : arrList) {
+			System.out.println(w.getText() + " " + w.getInstances());
+		}
 
+		return arrList;
 	}
 
 }

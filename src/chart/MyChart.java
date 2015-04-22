@@ -1,7 +1,7 @@
 package chart;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -30,7 +30,7 @@ public class MyChart {
 
 	private static final String WORDS = "S³owa";
 
-	public void prepareJFrame(ArrayList<Word> extractedWords) {
+	public void prepareJFrame(List<Word> extractedWords) {
 		ChartPanel chartPanel = createChartPanel(extractedWords);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,7 +39,7 @@ public class MyChart {
 		frame.pack();
 	}
 
-	private ChartPanel createChartPanel(ArrayList<Word> extractedWords) {
+	private ChartPanel createChartPanel(List<Word> extractedWords) {
 		XYDataset dataset = createDataset(extractedWords);
 		JFreeChart chart = createJFreeChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart);
@@ -47,7 +47,7 @@ public class MyChart {
 		return chartPanel;
 	}
 
-	private XYDataset createDataset(ArrayList<Word> extractedWords) {
+	private XYDataset createDataset(List<Word> extractedWords) {
 		final XYSeries series1 = new XYSeries(WORDS);
 
 		final XYSeriesCollection dataset = new XYSeriesCollection();
