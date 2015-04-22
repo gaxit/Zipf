@@ -1,8 +1,11 @@
 package chart;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import model.Word;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -27,12 +30,8 @@ public class MyChart {
 
 	private static final String WORDS = "S³owa";
 
-	public static void main(final String[] args) {
-		ChartPanel chartPanel = createChartPanel();
-		prepareJFrame(chartPanel);
-	}
-
-	private static void prepareJFrame(ChartPanel chartPanel) {
+	public void prepareJFrame(ArrayList<Word> extractedWords) {
+		ChartPanel chartPanel = createChartPanel(extractedWords);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().add(chartPanel);
@@ -40,30 +39,30 @@ public class MyChart {
 		frame.pack();
 	}
 
-	private static ChartPanel createChartPanel() {
-		XYDataset dataset = createDataset();
+	private ChartPanel createChartPanel(ArrayList<Word> extractedWords) {
+		XYDataset dataset = createDataset(extractedWords);
 		JFreeChart chart = createJFreeChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setPreferredSize(new Dimension(CHART_WIDTH, CHART_HEIGHT));
 		return chartPanel;
 	}
 
-	private static XYDataset createDataset() {
+	private XYDataset createDataset(ArrayList<Word> extractedWords) {
 		final XYSeries series1 = new XYSeries(WORDS);
 
 		final XYSeriesCollection dataset = new XYSeriesCollection();
 
-		series1.add(1, 1);
-		series1.add(2, 1);
-		series1.add(3, 1);
-		series1.add(4, 1);
-		series1.add(5, 1);
+		int i = 1;
+		for (Word word : extractedWords) {
+			series1.add(i, word.getInstances());
+			i++;
+		}
 
 		dataset.addSeries(series1);
 		return dataset;
 	}
 
-	private static JFreeChart createJFreeChart(final XYDataset dataset) {
+	private JFreeChart createJFreeChart(final XYDataset dataset) {
 		final JFreeChart chart = ChartFactory.createScatterPlot(CHART_TITLE,
 				X_SERIES_LABEL, Y_SERIES_LABEL, dataset,
 				PlotOrientation.VERTICAL, CHART_LEGEND, CHART_TOOLTIPS,
