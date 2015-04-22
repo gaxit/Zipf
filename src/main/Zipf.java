@@ -1,7 +1,11 @@
+package main;
 import java.io.IOException;
 import java.util.*;
 
 import javax.swing.JFrame;
+
+import model.Word;
+import textLoad.TextExtractor;
 
  
 

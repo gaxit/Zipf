@@ -1,3 +1,4 @@
+package textLoad;
 import java.util.*;
 
 public class TextAnalyzer {

@@ -1,3 +1,4 @@
+package model;
 
 public class Word implements Comparable {
 	private String text;
