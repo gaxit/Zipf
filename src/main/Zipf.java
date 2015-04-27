@@ -10,20 +10,29 @@ import chart.MyChart;
 
 public class Zipf {
 
-	// private static final String FILE_NAME = "genezisEsperanto.txt";
-	private static final String FILE_NAME = "genezisEsperantoTest.txt";
+	private static final String FILE_NAME = "polski.txt";
 
 	public static void main(String[] args) throws IOException {
 		TextExtractor textExtractor = new TextExtractor();
 		List<Word> extractedWords = textExtractor.readFile(FILE_NAME);
-		// ArrayList<Word> extractedWords = textExtractor.extract(FILE_NAME);
 
 		MyChart myChart = new MyChart();
 		myChart.prepareJFrame(extractedWords);
 
-		display(extractedWords);
-		TextAnalyzer textAnalyser = new TextAnalyzer();
-		textAnalyser.stdDev(extractedWords);
+		// display(extractedWords);
+		int threshold = 10;
+		TextAnalyzer textAnalyzer = new TextAnalyzer();
+
+		double average = textAnalyzer.averageZipfValue(extractedWords,
+				threshold);
+		double stdDev = textAnalyzer.stdDev(extractedWords, threshold);
+
+		System.out.println("Œrednia Fi*Pi dla progu " + threshold + " wynosi "
+				+ average);
+		System.out.println("Odchylenie standardowe dla progu " + threshold
+				+ " wynosi: " + stdDev);
+		System.out.println("Stosunek odchylenia do œredniej Fi*Pi dla progu "
+				+ threshold + " wynosi: " + stdDev / average);
 
 	}
 

@@ -36,7 +36,7 @@ public class TextExtractor {
 
 			while (line != null) {
 				String lineReplaced = line.replaceAll("[0-9]", " ");
-				lineReplaced = lineReplaced.replaceAll("[:;.,!(){}]", " ");
+				lineReplaced = lineReplaced.replaceAll("[:;.,!(){}*]", " ");
 				lineReplaced = lineReplaced.toLowerCase();
 				String[] wordTab = lineReplaced.split(" ");
 				for (String word : wordTab) {
@@ -56,10 +56,6 @@ public class TextExtractor {
 		}
 
 		Collections.sort(arrList, new WordComparator());
-
-		for (Word w : arrList) {
-			System.out.println(w.getText() + " " + w.getInstances());
-		}
 
 		return arrList;
 	}
