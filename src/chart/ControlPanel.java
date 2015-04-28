@@ -3,11 +3,13 @@ package chart;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -32,9 +34,18 @@ public class ControlPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					JFileChooser fileChooser = new JFileChooser();
+					int returnVal = fileChooser.showOpenDialog(frame);
+
+					if (returnVal != JFileChooser.APPROVE_OPTION) {
+						return;
+					}
+					File file = fileChooser.getSelectedFile();
+
 					TextExtractor textExtractor = new TextExtractor();
 					List<Word> extractedWords = new ArrayList<Word>();
-					extractedWords = textExtractor.readFile(FILE_NAME);
+					extractedWords = textExtractor.readFile(file
+							.getAbsolutePath());
 
 					if (frame.getContentPane().getComponents().length == 2) {
 						frame.getContentPane().remove(1);
