@@ -3,8 +3,6 @@ package chart;
 import java.awt.Dimension;
 import java.util.List;
 
-import javax.swing.JFrame;
-
 import model.Word;
 
 import org.jfree.chart.ChartFactory;
@@ -18,7 +16,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class MyChart {
 
 	private static final int CHART_HEIGHT = 400;
-	private static final int CHART_WIDTH = 400;
+	private static final int CHART_WIDTH = 500;
 
 	private static final String CHART_TITLE = "Wykres zale¿noœci s³ów od pozycji rankingowej";
 	private static final String X_SERIES_LABEL = "Pozycja rankingowa";
@@ -30,16 +28,7 @@ public class MyChart {
 
 	private static final String WORDS = "S³owa";
 
-	public void prepareJFrame(List<Word> extractedWords) {
-		ChartPanel chartPanel = createChartPanel(extractedWords);
-		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(chartPanel);
-		frame.setVisible(true);
-		frame.pack();
-	}
-
-	private ChartPanel createChartPanel(List<Word> extractedWords) {
+	public static ChartPanel createChartPanel(List<Word> extractedWords) {
 		XYDataset dataset = createDataset(extractedWords);
 		JFreeChart chart = createJFreeChart(dataset);
 		ChartPanel chartPanel = new ChartPanel(chart);
@@ -47,7 +36,7 @@ public class MyChart {
 		return chartPanel;
 	}
 
-	private XYDataset createDataset(List<Word> extractedWords) {
+	private static XYDataset createDataset(List<Word> extractedWords) {
 		final XYSeries series1 = new XYSeries(WORDS);
 
 		final XYSeriesCollection dataset = new XYSeriesCollection();
@@ -62,7 +51,7 @@ public class MyChart {
 		return dataset;
 	}
 
-	private JFreeChart createJFreeChart(final XYDataset dataset) {
+	private static JFreeChart createJFreeChart(final XYDataset dataset) {
 		final JFreeChart chart = ChartFactory.createScatterPlot(CHART_TITLE,
 				X_SERIES_LABEL, Y_SERIES_LABEL, dataset,
 				PlotOrientation.VERTICAL, CHART_LEGEND, CHART_TOOLTIPS,

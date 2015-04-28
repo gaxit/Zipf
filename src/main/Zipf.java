@@ -6,7 +6,6 @@ import java.util.List;
 import model.Word;
 import textLoad.TextAnalyzer;
 import textLoad.TextExtractor;
-import chart.MyChart;
 
 public class Zipf {
 
@@ -16,8 +15,8 @@ public class Zipf {
 		TextExtractor textExtractor = new TextExtractor();
 		List<Word> extractedWords = textExtractor.readFile(FILE_NAME);
 
-		MyChart myChart = new MyChart();
-		myChart.prepareJFrame(extractedWords);
+		// MyChart myChart = new MyChart();
+		// myChart.prepareJFrame(extractedWords);
 
 		// display(extractedWords);
 		int threshold = 10;
