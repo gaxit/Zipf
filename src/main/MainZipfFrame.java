@@ -9,9 +9,11 @@ import chart.ControlPanel;
 
 public class MainZipfFrame {
 
+	private static final String FRAME_TITLE = "Analizator prawa Zipf'a";
+
 	public static void main(String[] args) throws IOException {
 
-		JFrame frame = new JFrame();
+		JFrame frame = new JFrame(FRAME_TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frame.getContentPane().setLayout(new BorderLayout());
