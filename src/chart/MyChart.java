@@ -20,7 +20,7 @@ public class MyChart {
 
 	private static final String CHART_TITLE = "Wykres zale¿noœci s³ów od pozycji rankingowej";
 	private static final String X_SERIES_LABEL = "Pozycja rankingowa";
-	private static final String Y_SERIES_LABEL = "Iloœæ wyst¹pieñ";
+	private static final String Y_SERIES_LABEL = "Iloœæ wyst¹pieñ * pozycja rankingowa";
 
 	private static final boolean CHART_LEGEND = true;
 	private static final boolean CHART_TOOLTIPS = true;
@@ -43,7 +43,7 @@ public class MyChart {
 
 		int i = 1;
 		for (Word word : extractedWords) {
-			series1.add(i, word.getInstances());
+			series1.add(i, word.getInstances() * i);
 			i++;
 		}
 

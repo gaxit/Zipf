@@ -18,7 +18,7 @@ public class MainZipfFrame {
 		frame.getContentPane().add(new ControlPanel(frame),
 				BorderLayout.PAGE_START);
 		frame.setVisible(true);
-		frame.setSize(500, 500);
+		frame.setSize(500, 550);
 	}
 
 }
